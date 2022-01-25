@@ -1,7 +1,7 @@
 import './util/module-alias';
 import { Server } from '@overnightjs/core';
 import bodyParser from 'body-parser';
-import { ForecastController } from './controllers/forecast';
+import cors from 'cors';
 import { Application } from 'express';
 
 export class SetupServer extends Server {
@@ -10,9 +10,19 @@ export class SetupServer extends Server {
         super();
     }
 
-    public init(): void {
+    public async init(): Promise<void> {
         this.setupExpress();
-        this.setupController();
+        // this.setupController();
+    }
+
+    public start(): void {
+        this.app.listen(this.port, () => {
+            console.info(`Server listening of port: ${this.port}`);
+        });
+    }
+
+    public async close(): Promise<void> {
+        console.log('Exit APP');
     }
 
     public getApp(): Application {
@@ -21,10 +31,9 @@ export class SetupServer extends Server {
 
     private setupExpress(): void {
         this.app.use(bodyParser.json());
+        this.app.use(cors({ origin: '*' }));
     }
 
-    private setupController(): void {
-        const forecastController = new ForecastController();
-        this.addControllers([forecastController]);
-    }
+    // private setupController(): void {
+    // }
 }
