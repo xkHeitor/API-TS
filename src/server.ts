@@ -1,8 +1,9 @@
 import './util/module-alias';
 import { Server } from '@overnightjs/core';
+import { Application } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import { Application } from 'express';
+import * as database from "@src/database";
 
 export class SetupServer extends Server {
 
@@ -12,6 +13,7 @@ export class SetupServer extends Server {
 
     public async init(): Promise<void> {
         this.setupExpress();
+        this.setupDB();
         // this.setupController();
     }
 
@@ -22,6 +24,7 @@ export class SetupServer extends Server {
     }
 
     public async close(): Promise<void> {
+        await database.close();
         console.log('Exit APP');
     }
 
@@ -32,6 +35,10 @@ export class SetupServer extends Server {
     private setupExpress(): void {
         this.app.use(bodyParser.json());
         this.app.use(cors({ origin: '*' }));
+    }
+
+    private async setupDB(): Promise<void> {
+        await database.connect();
     }
 
     // private setupController(): void {

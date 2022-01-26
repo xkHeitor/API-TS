@@ -1,5 +1,8 @@
 {
     "App": {
-      "port": 3000
+      "port": 3000,
+      "database": {
+        "mongoURL": "mongodb://db:27017/developers"
+      }
     }
   }
