@@ -1,4 +1,4 @@
-import { ExitStatus } from "@src/types/status";
+import { ExitStatus } from "@src/app/types/status";
 import { SetupServer } from "@src/server";
 
 export class AppExitTreatments {

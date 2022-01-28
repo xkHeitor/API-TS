@@ -1,4 +1,4 @@
-import './util/module-alias';
+import './app/util/module-alias';
 import { Server } from '@overnightjs/core';
 import { Application } from 'express';
 import bodyParser from 'body-parser';

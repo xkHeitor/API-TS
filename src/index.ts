@@ -1,6 +1,6 @@
 import { SetupServer } from "./server";
-import { ExitStatus } from "./types/status";
-import { AppExitTreatments } from "./util/app-exit-treatments";
+import { ExitStatus } from "./app/types/status";
+import { AppExitTreatments } from "./app/util/app-exit-treatments";
 import config from "config";
 
 const exitSignals: NodeJS.Signals[] = [ "SIGINT", "SIGTERM", 'SIGQUIT' ];
