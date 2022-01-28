@@ -3,7 +3,7 @@ import { CUSTOM } from "../types/validation";
 import { DateUtil } from "../util/date";
 import { Developer as Dev, Sexo } from "./type-of-developer";
 
-interface DeveloperModel extends Omit<Dev, '_id'>, Document {}
+export interface DeveloperModel extends Omit<Dev, '_id'>, Document {}
 const schema = new mongoose.Schema(
     {
         nome: { type: String, required: true },

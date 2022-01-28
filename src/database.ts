@@ -1,5 +1,5 @@
 import config, { IConfig } from 'config';
-import mongoose, { mongo, Mongoose } from 'mongoose';
+import mongoose, { Mongoose } from 'mongoose';
 
 const databaseConfigs: IConfig = config.get('App.database');
 export const connect = async (): Promise<Mongoose> => 
