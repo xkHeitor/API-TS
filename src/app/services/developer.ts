@@ -4,6 +4,8 @@ import { DeveloperRepository } from "../repositories/developer";
 
 export class DeveloperService extends DeveloperRepository {
     
+    /* eslint-disable @typescript-eslint/no-explicit-any */
+
     public async getOne(req: Request, res: Response): Promise<Response> {
         const dev = await this.getById(parseInt(req.params.id))
         if (!dev) {
@@ -13,14 +15,13 @@ export class DeveloperService extends DeveloperRepository {
         return res.send({ dev });
     }
     
-    /* eslint-disable @typescript-eslint/no-explicit-any */
-    public async store(req: Request, res: Response): Promise<void> {
+    public async store(req: Request, res: Response): Promise<Response> {
         try {
             const dev = new Developer(req.body);
             const newDev = await this.create(dev);
-            res.status(201).send(newDev);
+            return res.status(201).send(newDev);
         } catch (error: any) {
-            this.sendCreateUpdateErrorResponse(res, error);
+            return this.sendCreateUpdateErrorResponse(res, error);
         }
     }
 

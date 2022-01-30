@@ -7,7 +7,7 @@ export interface DeveloperModel extends Omit<Dev, '_id'>, Document {}
 const schema = new mongoose.Schema(
     {
         nome: { type: String, required: true },
-        sexo: { type: Sexo, required: true },
+        sexo: { type: String, default: Sexo.Male, enum: Object.values(Sexo), required: true },
         idade: { type: Number, required: true },
         hobby: { type: String, required: false },
         datanascimento: { type: Date, required: true },
@@ -16,7 +16,7 @@ const schema = new mongoose.Schema(
             transform: (_, ret): void => {
                 ret.id = ret._id;
                 delete ret._id;
-                delete ret._v;
+                delete ret.__v;
             }
         }
     }

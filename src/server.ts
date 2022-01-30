@@ -4,6 +4,7 @@ import { Application } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import * as database from "@src/database";
+import { DeveloperController } from './app/controllers/developer';
 
 export class SetupServer extends Server {
 
@@ -14,7 +15,7 @@ export class SetupServer extends Server {
     public async init(): Promise<void> {
         this.setupExpress();
         this.setupDB();
-        // this.setupController();
+        this.setupController();
     }
 
     public start(): void {
@@ -41,6 +42,8 @@ export class SetupServer extends Server {
         await database.connect();
     }
 
-    // private setupController(): void {
-    // }
+    private setupController(): void {
+        const developer = new DeveloperController();
+        this.addControllers([ developer ]);
+    }
 }

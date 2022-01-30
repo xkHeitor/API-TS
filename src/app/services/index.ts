@@ -6,13 +6,13 @@ import { TypeAPIError } from "../util/errors/type-of-error";
 
 export abstract class BaseService {
     
-    protected sendCreateUpdateErrorResponse(res: Response, error: mongoose.Error.ValidationError|Error): void {
+    protected sendCreateUpdateErrorResponse(res: Response, error: mongoose.Error.ValidationError|Error): Response {
         if (error instanceof mongoose.Error.ValidationError) {
             const clientErrors = this.handleClientErrors(error);
-            res.status(clientErrors.code).send(APIError.format({ code: clientErrors.code, message: clientErrors.error}));
+            return res.status(clientErrors.code).send(APIError.format({ code: clientErrors.code, message: clientErrors.error}));
         } else {
             console.error(error);
-            res.status(500).send(APIError.format({ code: 500, message: 'Something went wrong' }));
+            return res.status(500).send(APIError.format({ code: 500, message: 'Something went wrong' }));
         }
     }
     
