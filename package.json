@@ -26,11 +26,13 @@
   },
   "homepage": "https://github.com/xkHeitor/ts#readme",
   "devDependencies": {
+    "@types/bcrypt": "^5.0.0",
     "@types/config": "^0.0.41",
     "@types/cors": "^2.8.12",
     "@types/express": "^4.17.13",
     "@types/http-status-codes": "^1.2.0",
     "@types/jest": "^27.0.2",
+    "@types/jsonwebtoken": "^8.5.8",
     "@types/module-alias": "^2.0.1",
     "@types/moment": "^2.13.0",
     "@types/mongoose": "^5.11.97",
@@ -47,11 +49,13 @@
   },
   "dependencies": {
     "@overnightjs/core": "^1.7.6",
+    "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "config": "^3.3.7",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "http-status-codes": "^2.2.0",
+    "jsonwebtoken": "^8.5.1",
     "module-alias": "^2.2.2",
     "moment": "^2.29.1",
     "mongoose": "^6.1.8"

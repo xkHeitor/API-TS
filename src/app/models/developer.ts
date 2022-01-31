@@ -7,6 +7,7 @@ export interface DeveloperModel extends Omit<Dev, '_id'>, Document {}
 const schema = new mongoose.Schema(
     {
         nome: { type: String, required: true },
+        password: { type: String, required: true },
         sexo: { type: String, default: Sexo.Male, enum: Object.values(Sexo), required: true },
         idade: { type: Number, required: true },
         hobby: { type: String, required: false },

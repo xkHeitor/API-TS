@@ -1,8 +1,12 @@
 {
-    "App": {
-      "port": 3000,
-      "database": {
-        "mongoURL": "mongodb://localhost:27017/developers"
-      }
+  "App": {
+    "port": 3000,
+    "database": {
+      "mongoURL": "mongodb://localhost:27017/developers"
+    },
+    "auth": {
+      "key": "dev-auth",
+      "tokenExpiresIn": "604800"
     }
   }
+}
