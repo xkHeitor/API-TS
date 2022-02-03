@@ -5,7 +5,7 @@ import { DecodedDeveloper } from '../types/auth';
 
 export default class AuthService {
 
-    static async hasPassword(password: string, salt = 8): Promise<string> {
+    static async hashPassword(password: string, salt = 8): Promise<string> {
         return await bcrypt.hash(password, salt);
     }
 

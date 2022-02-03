@@ -5,6 +5,8 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import * as database from "@src/database";
 import { DeveloperController } from './app/controllers/developer';
+import { DeveloperService } from './app/services/developer';
+import DeveloperRepository from './app/repositories/developer';
 
 export class SetupServer extends Server {
 
@@ -43,7 +45,13 @@ export class SetupServer extends Server {
     }
 
     private setupController(): void {
-        const developer = new DeveloperController();
+        const developer = this.setupDeveloper();
         this.addControllers([ developer ]);
+    }
+
+    private setupDeveloper(): DeveloperController {
+        const repository = new DeveloperRepository();
+        const service = new DeveloperService(repository);
+        return new DeveloperController(service);
     }
 }

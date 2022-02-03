@@ -1,33 +1,36 @@
 import { AnyObject } from "mongoose";
 import { Developer, DeveloperModel } from "../models/developer";
-import { BaseService } from "../services/index";
 
-export abstract class DeveloperRepository extends BaseService {
-
+export default class DeveloperRepository {
 
     /* eslint-disable @typescript-eslint/no-explicit-any */
 
-    protected async getAll(): Promise<AnyObject> {
+    public async getAll(): Promise<AnyObject> {
         return await Developer.find();
     }
 
-    protected async getById(id: number): Promise<any> {
+    public async getById(id: number): Promise<any> {
+        console.log(Developer, id)
         return await Developer.findOne({ id });
     }
 
-    protected async getByParams(params: object): Promise<any> {
+    public async getByFilter(filter: object): Promise<any> {
+        return await Developer.findOne(filter);
+    }
+
+    public async getByParams(params: object): Promise<any> {
         return await Developer.find(params);
     }
 
-    protected async create(developer: DeveloperModel): Promise<any> {
+    public async create(developer: DeveloperModel): Promise<any> {
         return await developer.save();
     }
 
-    protected async update(developer: DeveloperModel, id: number, params: object): Promise<any> {
+    public async update(id: number, params: object): Promise<any> {
        return await Developer.where({ id }).update(params); 
     }
 
-    protected async delete(id: number): Promise<any> {
+    public async delete(id: number): Promise<any> {
         return await Developer.deleteOne({ id });
     } 
 }

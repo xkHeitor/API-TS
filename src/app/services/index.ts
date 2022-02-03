@@ -5,7 +5,7 @@ import APIError from "../util/errors/api-error";
 import { TypeAPIError } from "../util/errors/type-of-error";
 import { StatusCodes } from "@src/app/types/status-codes";
 
-export abstract class BaseService {
+export abstract class BaseController {
     
     protected sendCreateUpdateErrorResponse(res: Response, error: mongoose.Error.ValidationError|Error): Response {
         if (error instanceof mongoose.Error.ValidationError) {

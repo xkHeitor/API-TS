@@ -3,7 +3,7 @@ import { Date } from "mongoose";
 export interface Developer {
 	_id?: string;
 	nome: string;
-	password: string;
+	senha: string;
 	sexo: Sexo;
 	idade: number;
 	hobby: string;
