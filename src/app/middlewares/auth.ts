@@ -4,7 +4,7 @@ import { StatusCodes } from "../types/status-codes";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export function authMiddleware(req: Partial<Request>, res: Partial<Response>, next: NextFunction): void {
-    const token = req.headers?.['secret'];
+    const token = req.headers?.['x-access-token'];
     try {
         const decoded = AuthService.decodeToken(token as string);
         req.decoded = decoded;

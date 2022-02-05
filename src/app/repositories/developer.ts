@@ -9,28 +9,23 @@ export default class DeveloperRepository {
         return await Developer.find();
     }
 
-    public async getById(id: number): Promise<any> {
-        console.log(Developer, id)
-        return await Developer.findOne({ id });
+    public async getById(id: string): Promise<AnyObject|null> {
+        return await Developer.findById(id).exec();
     }
 
-    public async getByFilter(filter: object): Promise<any> {
-        return await Developer.findOne(filter);
+    public async getByFilter(filter: object): Promise<AnyObject> {
+        return await Developer.find(filter);
     }
 
-    public async getByParams(params: object): Promise<any> {
-        return await Developer.find(params);
-    }
-
-    public async create(developer: DeveloperModel): Promise<any> {
+    public async create(developer: DeveloperModel): Promise<AnyObject> {
         return await developer.save();
     }
 
-    public async update(id: number, params: object): Promise<any> {
+    public async update(id: number, params: object): Promise<AnyObject> {
        return await Developer.where({ id }).update(params); 
     }
 
-    public async delete(id: number): Promise<any> {
+    public async delete(id: number): Promise<AnyObject> {
         return await Developer.deleteOne({ id });
     } 
 }

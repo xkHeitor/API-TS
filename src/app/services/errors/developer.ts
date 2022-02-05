@@ -18,3 +18,9 @@ export class DeveloperNotFound extends HttpError {
         super(`The server cannot find the requested resource: ${message}`, StatusCodes.NotFound);
     }
 } 
+
+export class DeveloperUnauthorized extends HttpError {
+    constructor(message: string) {
+        super(`Not authorized: ${message}`, StatusCodes.Unauthorized);
+    }
+}

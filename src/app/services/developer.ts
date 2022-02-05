@@ -1,10 +1,10 @@
-import { Request, Response } from "express";
 import { Developer } from "../models/developer";
 import { StatusCodes } from "../types/status-codes";
 import DeveloperRepository from "../repositories/developer";
 import AuthService from "./auth";
-import { DeveloperBadRequest, DeveloperNotFound } from "./errors/developer";
+import { DeveloperBadRequest, DeveloperNotFound, DeveloperUnauthorized } from "./errors/developer";
 import { AnyObject } from "mongoose";
+import { Developer as DeveloperType } from "../models/type-of-developer";
 
 export class DeveloperService {
 
@@ -12,44 +12,40 @@ export class DeveloperService {
     
     /* eslint-disable @typescript-eslint/no-explicit-any */
 
-    public async getOne(developerID: number): Promise<AnyObject> {
+    public async getOne(developerID: string): Promise<AnyObject> {
         if (!developerID) {
-            throw new DeveloperBadRequest('developerID invalid or not found');
+            throw new DeveloperBadRequest('developerID not found');
         }
 
-        const developer = await this.repository.getAll()
+        const developer = await this.repository.getById(developerID);
         if (!developer) {
-            throw new DeveloperNotFound('Developr not found');
+            throw new DeveloperNotFound('Developer not found');
         }
 
         return developer;
 
     }
     
-    // public async store(req: Request, res: Response): Promise<Response> {
-    //     try {
-    //         const dev = new Developer(req.body);
-    //         const newDev = await this.repository.create(dev);
-    //         return res.status(StatusCodes.Created).send(newDev);
-    //     } catch (error: any) {
-    //         return this.sendCreateUpdateErrorResponse(res, error);
-    //     }
-    // }
+    public async store(body: object): Promise<AnyObject> {
+        const dev = new Developer(body);
+        const newDev = await this.repository.create(dev);
+        return newDev;
+    }
 
-    // public async auhtenticate(req: Request, res: Response): Promise<Response> {
-    //     const { nome, senha, datanascimento } = req.body;
-    //     const developer = await this.repository.getByFilter({nome, datanascimento});
+    public async auhtenticate(body: DeveloperType): Promise<string> {
+        const { nome, senha, datanascimento } = body;
+        const developer = await this.repository.getByFilter({nome, datanascimento});
 
-    //     if (!developer) {
-    //         return this.sendErrorResponse(res, { code: StatusCodes.Unauthorized, message: 'Developer not found!' });
-    //     }
+        if (!developer) {
+            throw new DeveloperNotFound('Developer not found');
+        }
 
-    //     if (!(await AuthService.comparePasswords(senha, developer.password))) {
-    //         return this.sendErrorResponse(res, { code: StatusCodes.Unauthorized, message: 'Password does not match!'});
-    //     }
+        if (!(await AuthService.comparePasswords(senha, developer.password))) {
+            throw new DeveloperUnauthorized('The password does not match');
+        }
 
-    //     const token = AuthService.generateToken(developer.toJSON());
-    //     return res.status(StatusCodes.OK).send({ token: token });
-    // }
+        const token = AuthService.generateToken(developer.toJSON());
+        return token;
+    }
 
 }
