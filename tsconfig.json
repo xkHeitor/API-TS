@@ -19,6 +19,7 @@
         "noImplicitReturns": true,      // verificará todos os caminhos de código em uma função para garantir que eles retornem um valor.
         "esModuleInterop": true,        // Permite interoperabilidade de emição entre Módulos CommonJS e ES através da criação de namespaces para todas as importações.
         "allowSyntheticDefaultImports": true,
+        "typeRoots": ["src/@types", "./node_modules/@types"],
         "baseUrl": ".",
         "paths": {
             "@src/*": [
