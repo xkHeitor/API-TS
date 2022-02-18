@@ -17,6 +17,10 @@ export default class DeveloperRepository {
         return await Developer.find(filter);
     }
 
+    public async getOneByFilter(filter: object): Promise<any> {
+        return await Developer.findOne(filter);
+    }
+
     public async create(developer: DeveloperModel): Promise<AnyObject> {
         return await developer.save();
     }

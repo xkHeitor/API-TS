@@ -21,7 +21,6 @@ describe('AuthMiddleware', () => {
 
         authMiddleware(reqFake, resFake as object, nextFake);
         expect(resFake.status).toHaveBeenCalledWith(StatusCodes.Unauthorized);
-        console.log(resFake.status)
         expect(sendMock).toHaveBeenCalledWith({ code: StatusCodes.Unauthorized, error: 'jwt malformed' });
     });
 
