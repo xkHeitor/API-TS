@@ -6,4 +6,8 @@ export class DateUtil {
         return moment(dtt, format || undefined).isValid();
     }
 
+    public static formatDate(date: string, format?: string): string {
+        return moment.utc(date).format(format || 'YYYY-MM-DD');
+    }
+
 }

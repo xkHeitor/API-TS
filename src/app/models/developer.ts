@@ -1,3 +1,4 @@
+import { read } from "fs";
 import mongoose , { Document, Model } from "mongoose";
 import AuthService from "../services/auth";
 import { CUSTOM } from "../types/validation";
@@ -12,10 +13,11 @@ const schema = new mongoose.Schema(
         sexo: { type: String, default: Sexo.Male, enum: Object.values(Sexo), required: true },
         idade: { type: Number, required: true },
         hobby: { type: String, required: false },
-        datanascimento: { type: Date, required: true },
+        datanascimento: { type: Date, required: true, },
     }, {
         toJSON: {
             transform: (_, ret): void => {
+                ret.datanascimento = DateUtil.formatDate(ret.datanascimento); 
                 ret.id = ret._id;
 				delete ret._id;
                 delete ret.__v;
@@ -38,7 +40,7 @@ schema.pre<DeveloperModel>('save', async function(): Promise<void> {
         const hashedPassword = await AuthService.hashPassword(this.senha);
         this.senha = hashedPassword;
     } catch(error: any) {
-        console.error(`Error hashing the password for the developr ${this.nome}`);
+        console.error(`Error hashing the password for the developer ${this.nome}`);
     }
 });
 export const Developer: Model<DeveloperModel> = mongoose.model('Developer', schema);
