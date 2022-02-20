@@ -20,7 +20,6 @@ export class DeveloperController extends BaseController {
             const developer = await this.service.getOne(req.body.id);
             return res.send({ developer });
         } catch(error: any) {
-            console.error(error)
             return this.sendErrorResponse(res, { code: error.code, message: error.message});
         } 
         
@@ -32,7 +31,6 @@ export class DeveloperController extends BaseController {
             const developer = await this.service.store(req.body);
             return res.status(StatusCodes.Created).send(developer);
         } catch(error: any) {
-            console.error(error);
             return this.sendErrorResponse(res, { code: StatusCodes.InternalServerError, message: error.message});
         }
     }
@@ -43,7 +41,6 @@ export class DeveloperController extends BaseController {
             const token = await this.service.auhtenticate(req.body);
             return res.status(StatusCodes.OK).send({ token });
         } catch (error: any) {
-            console.error(error);
             return this.sendErrorResponse(res, { code: error.code, message: error.message});
         }
     }

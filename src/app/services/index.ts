@@ -12,7 +12,6 @@ export abstract class BaseController {
             const clientErrors = this.handleClientErrors(error);
             return res.status(clientErrors.code).send(APIError.format({ code: clientErrors.code, message: clientErrors.error}));
         } else {
-            console.error(error);
             return res.status(StatusCodes.InternalServerError).send(APIError.format({ code: StatusCodes.InternalServerError, message: 'Something went wrong' }));
         }
     }
