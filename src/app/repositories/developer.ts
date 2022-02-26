@@ -25,11 +25,11 @@ export default class DeveloperRepository {
         return await developer.save();
     }
 
-    public async update(id: number, params: object): Promise<AnyObject> {
+    public async update(id: string, params: object): Promise<AnyObject> {
        return await Developer.where({ id }).update(params); 
     }
 
-    public async delete(id: number): Promise<AnyObject> {
+    public async delete(id: string): Promise<AnyObject> {
         return await Developer.deleteOne({ id });
     } 
 }

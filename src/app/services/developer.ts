@@ -33,6 +33,17 @@ export class DeveloperService {
         return newDev;
     }
 
+    public async delete(developerID: string): Promise<void> {
+        if (!developerID){
+            throw new DeveloperBadRequest('developerID not found');
+        }
+
+        const res = await this.repository.delete(developerID);
+        if (!res.deletedCount || res?.deletedCount == 0)
+            throw new DeveloperBadRequest('Could not delete this developer');
+
+    }
+
     public async auhtenticate(body: DeveloperType): Promise<string> {
         if (!body) throw new DeveloperBadRequest('developerID not found');
         const { nome, senha, datanascimento } = body;

@@ -1,4 +1,3 @@
-import { read } from "fs";
 import mongoose , { Document, Model } from "mongoose";
 import AuthService from "../services/auth";
 import { CUSTOM } from "../types/validation";

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Middleware } from "@overnightjs/core";
+import { Controller, Get, Post, Middleware, Delete } from "@overnightjs/core";
 import { Request, Response } from "express";
 import { authMiddleware } from "../middlewares/auth";
 import { BaseController } from "../services";
@@ -35,13 +35,24 @@ export class DeveloperController extends BaseController {
         }
     }
 
+    @Delete('')
+	@Middleware(authMiddleware)
+    public async delete(req: Request, res: Response): Promise<Response> {
+        try {
+            await this.service.delete(req.body.id);
+            return res.status(StatusCodes.NoContent).send();
+        } catch(error: any) {
+            return this.sendErrorResponse(res, { code: StatusCodes.InternalServerError, message: error.message});
+        } 
+    }
+
     @Post('auth')
     public async authenticate(req: Request, res: Response): Promise<Response> {
         try {
             const token = await this.service.auhtenticate(req.body);
             return res.status(StatusCodes.OK).send({ token });
         } catch (error: any) {
-            return this.sendErrorResponse(res, { code: error.code, message: error.message});
+            return this.sendErrorResponse(res, { code: error.code, message: error.message });
         }
     }
 

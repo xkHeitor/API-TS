@@ -1,3 +1,4 @@
+import { StatusCodes } from '@src/app/types/status-codes';
 import httpStatusCode from 'http-status-codes';
 import { TypeAPIError as APIErrorType } from './type-of-error';
 
@@ -8,6 +9,7 @@ export interface APIErrorResponse extends Omit<APIErrorType, 'codeAsString'> {
 export default class APIError {
 
     public static format(error: APIErrorType): APIErrorResponse {
+        if (!error.code) error.code = StatusCodes.BadRequest;
         return {
           ... {
               message: error.message,

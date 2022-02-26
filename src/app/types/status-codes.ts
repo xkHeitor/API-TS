@@ -7,4 +7,5 @@ export enum StatusCodes {
     PreconditionFailed  = 412,
     UnprocessableEntity = 422,
     InternalServerError = 500,
+    NoContent           = 204,
 }
