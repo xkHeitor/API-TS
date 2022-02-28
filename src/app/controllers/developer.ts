@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Middleware, Delete } from "@overnightjs/core";
+import { Controller, Get, Post, Middleware, Delete, Put } from "@overnightjs/core";
 import { Request, Response } from "express";
 import { authMiddleware } from "../middlewares/auth";
 import { BaseController } from "../services";
@@ -35,6 +35,27 @@ export class DeveloperController extends BaseController {
         }
     }
 
+    @Post('auth')
+    public async authenticate(req: Request, res: Response): Promise<Response> {
+        try {
+            const token = await this.service.auhtenticate(req.body);
+            return res.status(StatusCodes.OK).send({ token });
+        } catch (error: any) {
+            return this.sendErrorResponse(res, { code: error.code, message: error.message });
+        }
+    }
+
+    @Put(':id')
+    public async change(req: Request, res: Response): Promise<Response> {
+        try {
+            const idDeveloper = req.params.id;
+            const developer = await this.service.changeData(idDeveloper, req.body);
+            return res.status(StatusCodes.OK).send(developer);
+        } catch (error: any) {
+            return this.sendErrorResponse(res, { code: error.code, message: error.message });
+        }
+    }
+
     @Delete('')
 	@Middleware(authMiddleware)
     public async delete(req: Request, res: Response): Promise<Response> {
@@ -44,16 +65,6 @@ export class DeveloperController extends BaseController {
         } catch(error: any) {
             return this.sendErrorResponse(res, { code: StatusCodes.InternalServerError, message: error.message});
         } 
-    }
-
-    @Post('auth')
-    public async authenticate(req: Request, res: Response): Promise<Response> {
-        try {
-            const token = await this.service.auhtenticate(req.body);
-            return res.status(StatusCodes.OK).send({ token });
-        } catch (error: any) {
-            return this.sendErrorResponse(res, { code: error.code, message: error.message });
-        }
     }
 
 }

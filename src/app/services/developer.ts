@@ -4,6 +4,7 @@ import AuthService from "./auth";
 import { DeveloperBadRequest, DeveloperNotFound, DeveloperUnauthorized } from "./errors/developer";
 import { AnyObject } from "mongoose";
 import { Developer as DeveloperType } from "../models/type-of-developer";
+import MandatoryIdentifier from "./mandatory-identifier";
 
 export class DeveloperService {
 
@@ -11,12 +12,9 @@ export class DeveloperService {
     
     /* eslint-disable @typescript-eslint/no-explicit-any */
 
-    public async getOne(developerID: string): Promise<AnyObject> {
-        if (!developerID) {
-            throw new DeveloperBadRequest('developerID not found');
-        }
-
-        const developer = await this.repository.getById(developerID);
+    public async getOne(idDeveloper: string): Promise<AnyObject> {
+        const mandatoryIdentifier = new MandatoryIdentifier(idDeveloper);
+        const developer = await this.repository.getById(mandatoryIdentifier.get());
         if (!developer) {
             throw new DeveloperNotFound('Developer not found');
         }
@@ -33,19 +31,22 @@ export class DeveloperService {
         return newDev;
     }
 
-    public async delete(developerID: string): Promise<void> {
-        if (!developerID){
-            throw new DeveloperBadRequest('developerID not found');
-        }
+    public async changeData(idDeveloper: string, body: DeveloperType): Promise<AnyObject> {
+        const mandatoryIdentifier = new MandatoryIdentifier(idDeveloper);
+        const changedDeveloper = await this.repository.update(mandatoryIdentifier.get(), body);
+        return changedDeveloper;
+    }
 
-        const res = await this.repository.delete(developerID);
+    public async delete(idDeveloper: string): Promise<void> {
+        const mandatoryIdentifier = new MandatoryIdentifier(idDeveloper);
+        const res = await this.repository.delete(mandatoryIdentifier.get());
         if (!res.deletedCount || res?.deletedCount == 0)
             throw new DeveloperBadRequest('Could not delete this developer');
 
     }
 
     public async auhtenticate(body: DeveloperType): Promise<string> {
-        if (!body) throw new DeveloperBadRequest('developerID not found');
+        if (!body) throw new DeveloperBadRequest('idDeveloper not found');
         const { nome, senha, datanascimento } = body;
         const developer = await this.repository.getOneByFilter({ nome, datanascimento });
 

@@ -26,7 +26,7 @@ export default class DeveloperRepository {
     }
 
     public async update(id: string, params: object): Promise<AnyObject> {
-       return await Developer.where({ id }).update(params); 
+       return await Developer.where({ id }).updateOne(params); 
     }
 
     public async delete(id: string): Promise<AnyObject> {

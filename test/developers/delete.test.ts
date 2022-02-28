@@ -7,7 +7,7 @@ const standardDev = {
     "senha": "321",
     "sexo": "M",
     "idade": 23,
-    "hobby": "Pixelmon",
+    "hobby": "Lost ARK",
     "datanascimento": "1998-10-13"
 };
 

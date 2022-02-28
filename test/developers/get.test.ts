@@ -8,7 +8,7 @@ const standardDev = {
     "senha": "321",
     "sexo": "M",
     "idade": 23,
-    "hobby": "Pixelmon",
+    "hobby": "Lost ARK",
     "datanascimento": "1998-10-13"
 };
 
@@ -37,7 +37,7 @@ describe('GET - Developers', () => {
         expect(res.body).toEqual({
             error: 'Bad Request',
             code: StatusCodes.BAD_REQUEST,
-            message: 'This response means that the server did not understand the request because it has an invalid syntax: developerID not found'
+            message: 'This response means that the server did not understand the request because it has an invalid syntax: idDeveloper not found'
         });
     });
 
