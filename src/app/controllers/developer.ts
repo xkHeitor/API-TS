@@ -12,12 +12,25 @@ export class DeveloperController extends BaseController {
     constructor(private service: DeveloperService) {
         super();
     }
-    
+
     @Get('')
-	@Middleware(authMiddleware)
     public async getAll(req: Request, res: Response): Promise<Response> {
         try {
-            const developer = await this.service.getOne(req.body.id);
+            const filters = req.body.filters;
+            const developer = await this.service.getAll(filters);
+            return res.send({ developer });
+        } catch(error: any) {
+            return this.sendErrorResponse(res, { code: error.code, message: error.message});
+        } 
+        
+    }
+
+    @Get(':id')
+	@Middleware(authMiddleware)
+    public async getOne(req: Request, res: Response): Promise<Response> {
+        try {
+            const idDeveloper = req.params.id;
+            const developer = await this.service.getOne(idDeveloper);
             return res.send({ developer });
         } catch(error: any) {
             return this.sendErrorResponse(res, { code: error.code, message: error.message});

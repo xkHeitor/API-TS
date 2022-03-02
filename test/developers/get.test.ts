@@ -1,5 +1,4 @@
-import { Developer } from "@src/app/models/developer";
-import { Developer as TypeDeveloper} from "@src/app/models/type-of-developer";
+import { Developer, DeveloperModel } from "@src/app/models/developer";
 import { StatusCodes } from "http-status-codes";
 
 const routeDeveloper = '/developers';
@@ -16,7 +15,7 @@ const standardDev = {
 describe('GET - Developers', () => {
 
     let token: string; 
-    let dev: TypeDeveloper;
+    let dev: Partial<DeveloperModel>;
 
     beforeAll(async () => {
         await Developer.deleteMany();
@@ -26,13 +25,13 @@ describe('GET - Developers', () => {
     });
 
     it('Should get one developer by id', async () => {
-        const res = await global.testRequest.get(routeDeveloper).set({ token }).send(dev);
+        const res = await global.testRequest.get(`${routeDeveloper}/${dev.id}`).set({ token }).send();
         expect(res.status).toBe(StatusCodes.OK);
         expect(res.body.developer).toEqual(dev);
     });
 
     it('Should request ID of developer', async () => {
-        const res = await global.testRequest.get(routeDeveloper).set({ token }).send({});
+        const res = await global.testRequest.get(`${routeDeveloper}/${'0'}`).set({ token }).send({});
         expect(res.status).toBe(StatusCodes.BAD_REQUEST);
         expect(res.body).toEqual({
             error: 'Bad Request',

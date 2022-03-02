@@ -5,7 +5,7 @@ export default class MandatoryIdentifier {
     private id: string;
 
     constructor(id?: string) {
-        if(!id) throw new DeveloperBadRequest('idDeveloper not found');
+        if(!id || id == '0') throw new DeveloperBadRequest('idDeveloper not found');
         this.id = id;
     }
 

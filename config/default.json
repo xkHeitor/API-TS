@@ -2,7 +2,7 @@
   "App": {
     "port": 3000,
     "database": {
-      "mongoURL": "mongodb://localhost:27017/developers"
+      "mongoURL": "mongodb://db:27017/developers"
     },
     "auth": {
       "key": "dev-auth",

@@ -12,6 +12,11 @@ export class DeveloperService {
     
     /* eslint-disable @typescript-eslint/no-explicit-any */
 
+    public async getAll(filter?: object): Promise<AnyObject> {
+        const developers = await this.repository.getByFilter(filter || {});
+        return developers;
+    }
+
     public async getOne(idDeveloper: string): Promise<AnyObject> {
         const mandatoryIdentifier = new MandatoryIdentifier(idDeveloper);
         const developer = await this.repository.getById(mandatoryIdentifier.get());
