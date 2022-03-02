@@ -11,7 +11,7 @@ Uma API montadada com:
 Clone o repositório.
 
 ```bash
-git clone https://github.com/xkHeitor/typeScriptAPI.git
+git clone https://github.com/xkHeitor/API-TS.git
 ```
 
 ## Utilização
